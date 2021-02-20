@@ -1,4 +1,4 @@
-resource "azurerm_virtual_machine" "main" {
+resource "azurerm_virtual_machine" "node" {
   name                  = "${var.prefix}-node"
   location              = azurerm_resource_group.kiran-k8s.location
   resource_group_name   = azurerm_resource_group.kiran-k8s.name

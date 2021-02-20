@@ -37,4 +37,3 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
-kubeadm init --control-plane-endpoint "localhost:6443" --upload-certs --pod-network-cidr=192.168.0.0/16

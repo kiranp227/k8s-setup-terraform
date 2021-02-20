@@ -43,4 +43,29 @@ resource "azurerm_virtual_machine" "node" {
   tags = {
     environment = "staging"
   }
+  depends_on = [azurerm_virtual_machine.main]
+}
+
+resource "azurerm_network_interface" "node1" {
+  name                = "${var.prefix}-node1-nic"
+  location            = azurerm_resource_group.kiran-k8s.location
+  resource_group_name = azurerm_resource_group.kiran-k8s.name
+
+  ip_configuration {
+    name                          = "testconfiguration-node1"
+    subnet_id                     = azurerm_subnet.internal.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.node1.id
+  }
+}
+
+resource "azurerm_public_ip" "node1" {
+  name                = "acceptanceTest-node1-PublicIp1"
+  resource_group_name = azurerm_resource_group.kiran-k8s.name
+  location            = azurerm_resource_group.kiran-k8s.location
+  allocation_method   = "Static"
+
+  tags = {
+    environment = "Production"
+  }
 }

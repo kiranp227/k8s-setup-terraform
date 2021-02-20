@@ -1,8 +1,8 @@
-resource "azurerm_virtual_machine" "node" {
-  name                  = "${var.prefix}-node"
+resource "azurerm_virtual_machine" "node1" {
+  name                  = "${var.prefix}-node1"
   location              = azurerm_resource_group.kiran-k8s.location
   resource_group_name   = azurerm_resource_group.kiran-k8s.name
-  network_interface_ids = [azurerm_network_interface.main.id]
+  network_interface_ids = [azurerm_network_interface.node1.id]
   vm_size               = "Standard_B1s"
 #  boot_diagnostics      = enabled
   boot_diagnostics {
@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine" "node" {
     admin_password = "Password1234!"
 
 #   passing filebase64 to encode script
-    custom_data = filebase64("scripts/k8s-master1.sh")
+    custom_data = filebase64("scripts/k8s-node1.sh")
 
 #   custom_data    = "apt-get update \n swapoff -a"
   }

@@ -50,5 +50,5 @@ sudo chown testadmin:testadmin /home/testadmin/.kube/config
 egrep "kubeadm join|discovery-token|--control-plane" /tmp/masterop.txt | head -3 > /tmp/control-plane-ad.sh
 egrep "kubeadm join|discovery-token|--control-plane" /tmp/masterop.txt | tail -2 > /tmp/node-ad.sh
 
-sleep 480
+sleep 600
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml

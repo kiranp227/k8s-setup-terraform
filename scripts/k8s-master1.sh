@@ -39,13 +39,11 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
 sudo kubeadm init --control-plane-endpoint `hostname -i`:6443 --upload-certs --pod-network-cidr=192.168.0.0/16 | tee /tmp/masterop.txt
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown testadmin:testadmin $HOME/.kube/config
+mkdir -p /home/testadmin/.kube
+sudo cp -i /etc/kubernetes/admin.conf /home/testadmin/.kube/config
+sudo chown testadmin:testadmin /home/testadmin/.kube/config
 
 egrep "kubeadm join|discovery-token|--control-plane" /tmp/masterop.txt | head -3 > /tmp/control-plane-ad.sh
 egrep "kubeadm join|discovery-token|--control-plane" /tmp/masterop.txt | tail -2 > /tmp/node-ad.sh
 
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
-
-echo `hostname -i` k8master > /tmp/master-ip.sh

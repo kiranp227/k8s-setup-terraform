@@ -11,3 +11,7 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join 10.0.3.4:6443 --token 7wc5fm.0bu1a24ouspumbes \
     --discovery-token-ca-cert-hash sha256:38f82c1bb5477ba135e0690c946390b945700d799b338e7aead8d6469638bbb6 
 
+Sun Feb 21 13:20:55 UTC 2021 -- taerraform start
+Sun Feb 21 13:22:53 UTC 2021 -- terraform completed
+Sun Feb 21 13:28:05 UTC 2021 -- kubectl
+Sun Feb 21 13:38:39 UTC 2021

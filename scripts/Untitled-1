@@ -1,0 +1,13 @@
+  kubeadm join 10.0.3.4:6443 --token 7wc5fm.0bu1a24ouspumbes \
+    --discovery-token-ca-cert-hash sha256:38f82c1bb5477ba135e0690c946390b945700d799b338e7aead8d6469638bbb6 \
+    --control-plane --certificate-key d15149f777148d275311807ce88168265c688484b33126bc5a0e0c858d29d26d
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.0.3.4:6443 --token 7wc5fm.0bu1a24ouspumbes \
+    --discovery-token-ca-cert-hash sha256:38f82c1bb5477ba135e0690c946390b945700d799b338e7aead8d6469638bbb6 
+

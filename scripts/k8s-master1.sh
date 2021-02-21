@@ -37,5 +37,11 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
-sudo kubeadm init --control-plane-endpoint "localhost:6443" --upload-certs --pod-network-cidr=192.168.0.0/16 | tee /tmp/masterop.txt
+sudo kubeadm init --control-plane-endpoint `hostname -i`:6443 --upload-certs --pod-network-cidr=192.168.0.0/16 | tee /tmp/masterop.txt
 
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+egrep "kubeadm join|discovery-token|control-plane" /tmp/masterop.txt | head -3 > control-plane-ad.sh
+egrep "kubeadm join|discovery-token|control-plane" /tmp/masterop.txt | tail -2 > node-ad.sh

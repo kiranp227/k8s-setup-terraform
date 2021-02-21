@@ -41,6 +41,6 @@ sudo apt install sshpass
 
 sudo sh -c 'echo 10.0.3.9 k8master  >> /etc/hosts'
 
-sshpass -p "Password1234!" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null testadmin@k8master:/tmp/node-ad.sh /tmp
+sudo sshpass -p "Password1234!" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null testadmin@k8master:/tmp/node-ad.sh /tmp
 
 sudo sh /tmp/node-ad.sh

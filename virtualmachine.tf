@@ -54,7 +54,7 @@ resource "azurerm_virtual_machine" "main" {
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "hostname"
+    computer_name  = "k8smaster1"
     admin_username = "testadmin"
     admin_password = "Password1234!"
 

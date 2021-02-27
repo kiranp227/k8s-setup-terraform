@@ -1,5 +1,6 @@
 resource "azurerm_virtual_machine" "node1" {
-  name                  = "${var.prefix}-node1"
+  count                 = 2
+  name                  = "${var.prefix}-node-${count.index}"
   location              = azurerm_resource_group.kiran-k8s.location
   resource_group_name   = azurerm_resource_group.kiran-k8s.name
   network_interface_ids = [azurerm_network_interface.node1.id]
@@ -22,13 +23,13 @@ resource "azurerm_virtual_machine" "node1" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "myosdisknode1"
+    name              = "myosdisk${var.prefix}-node-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "k8snode1"
+    computer_name  = "${var.prefix}-node-${count.index}"
     admin_username = "testadmin"
     admin_password = "Password1234!"
 
@@ -47,12 +48,12 @@ resource "azurerm_virtual_machine" "node1" {
 }
 
 resource "azurerm_network_interface" "node1" {
-  name                = "${var.prefix}-node1-nic"
+  name                = "${var.prefix}-node-${count.index}-nic"
   location            = azurerm_resource_group.kiran-k8s.location
   resource_group_name = azurerm_resource_group.kiran-k8s.name
 
   ip_configuration {
-    name                          = "testconfiguration-node1"
+    name                          = "testconfiguration-node-{count.index}"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.node1.id
@@ -60,7 +61,7 @@ resource "azurerm_network_interface" "node1" {
 }
 
 resource "azurerm_public_ip" "node1" {
-  name                = "acceptanceTest-node1-PublicIp1"
+  name                = "acceptanceTest-node-${count.index}-PublicIp1"
   resource_group_name = azurerm_resource_group.kiran-k8s.name
   location            = azurerm_resource_group.kiran-k8s.location
   allocation_method   = "Static"

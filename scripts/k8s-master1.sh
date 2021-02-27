@@ -52,3 +52,7 @@ egrep "kubeadm join|discovery-token|--control-plane" /tmp/masterop.txt | tail -2
 
 sleep 600
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+
+kubectl label node kiran-k8s-node-0 node-role.kubernetes.io/node0=node0
+
+kubectl label node kiran-k8s-node-1 node-role.kubernetes.io/node1=node1

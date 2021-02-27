@@ -3,7 +3,7 @@ resource "azurerm_virtual_machine" "node1" {
   name                  = "${var.prefix}-node-${count.index}"
   location              = azurerm_resource_group.kiran-k8s.location
   resource_group_name   = azurerm_resource_group.kiran-k8s.name
-  network_interface_ids = [azurerm_network_interface.node1.id]
+  network_interface_ids = [azurerm_network_interface.node1[count.index].id]
   vm_size               = "Standard_B1s"
 #  boot_diagnostics      = enabled
   boot_diagnostics {
@@ -48,20 +48,23 @@ resource "azurerm_virtual_machine" "node1" {
 }
 
 resource "azurerm_network_interface" "node1" {
+  count = 2
   name                = "${var.prefix}-node-${count.index}-nic"
   location            = azurerm_resource_group.kiran-k8s.location
   resource_group_name = azurerm_resource_group.kiran-k8s.name
 
   ip_configuration {
-    name                          = "testconfiguration-node-{count.index}"
+    name                          = "testconfiguration-node-${count.index}"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.node1.id
+#    public_ip_address_id          = "[azurerm_public_ip.node1[count.index].id]"
+    public_ip_address_id          = "${element(azurerm_public_ip.node1.*.id, count.index)}"
   }
 }
 
 resource "azurerm_public_ip" "node1" {
-  name                = "acceptanceTest-node-${count.index}-PublicIp1"
+  count= 2
+  name                = "acceptanceTest-nodes-PublicIp-${count.index}"
   resource_group_name = azurerm_resource_group.kiran-k8s.name
   location            = azurerm_resource_group.kiran-k8s.location
   allocation_method   = "Static"

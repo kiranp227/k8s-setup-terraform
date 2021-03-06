@@ -39,6 +39,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
 sudo kubeadm init --control-plane-endpoint `hostname -i`:6443 --upload-certs --pod-network-cidr=192.168.0.0/16 | tee /tmp/masterop.txt
 
+id 
+
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config

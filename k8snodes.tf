@@ -73,3 +73,8 @@ resource "azurerm_public_ip" "node1" {
     environment = "Production"
   }
 }
+
+resource "azurerm_network_interface_security_group_association" "nodes" {
+    network_interface_id = azurerm_network_interface.node1.id
+    network_security_group_id = azurerm_network_security_group.myterraformnsg.id
+}

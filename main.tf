@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "kiran-k8s" {
-  name     = "kiran-k8s-rg"
+  name     = "kirans-k8s-rg"
   location = "West Europe"
 }
 

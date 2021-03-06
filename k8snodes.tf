@@ -75,6 +75,7 @@ resource "azurerm_public_ip" "node1" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nodes" {
-    network_interface_id = azurerm_network_interface.node1.id
+    count = 2
+    network_interface_id = azurerm_network_interface.node1[count.index].id
     network_security_group_id = azurerm_network_security_group.myterraformnsg.id
 }
